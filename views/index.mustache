@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/stylesheets/style.css">    
+    <title>Organizador de tarefas</title>
+  </head>
+  <body>
+      <h2 id="titulo">Nova Atividade: </h2>
+        <div class="tarefas-interface">
+          <form action="/erro" method="POST">
+            {{#task.id}}
+            <input type="hidden" name="id" value="{{.}}">
+            {{/task.id}}
+          <input type="text" id="nome" name="nome" value="{{task.name}}" placeholder="Tarefa"/>
+            <select name='situation' id='ssituation'>
+              <option>Situação</option>
+              {{#situations}}
+                <option value={{value}} {{#selected}}selected{{/selected}}>{{nome}}</option>
+              {{/situations}}
+            </select>
+          <input type="submit" value="Salvar"/>
+      </form>
+    </div>
+    
+    <div>
+      <h1 class="processos">Aguardando</h1>
+      <div id="pai3">
+      {{#tasksAwaiting}}
+        <div id="aguardando" class="tarefa-estilo amarelo">
+            <span id="nome-tarefa" class="{{priority}}">{{name}}</span> 
+            <a  class="link-tarefa" href="/erro/moveAndamento/{{id}}">iniciar</a>
+        </div>
+      {{/tasksAwaiting}}
+      </div>
+      <h1 class="processos">Em andamento</h1>
+      <div id="pai2">
+      {{#tasksDoing}}
+        <div id="andamento" class="tarefa-estilo amarelo">
+            <span id="nome-tarefa" class="{{priority}}">{{name}}</span> 
+            <a class="link-tarefa" href="/erro/concluir/{{id}}">concluir</a>
+        </div>
+        {{/tasksDoing}}
+      </div>
+      <h1 class="processos">Finalizados</h1>
+      <div id="pai">
+        {{#tasksDone}}  
+        <div id="finalizados" class="tarefa-estilo vermelho">
+            <span id="nome-tarefa">{{name}}</span> 
+        </div>
+        {{/tasksDone}}
+      </div>
+    </div>
+      <p>{{erro}}</p>
+  </body>
+</html>
